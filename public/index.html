@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#f5f2e9">
+  <meta name="description" content="Three years of Team Hygge. A little room to celebrate the people who make it special.">
+  <title>Hygge · Three years together</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Hygge home">hygge<span class="brand-dot">.</span></a>
+    <span class="edition">THE THREE-YEAR CELEBRATION</span>
+    <span id="connection" class="connection">A little room for us</span>
+  </header>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <main id="app"></main>
+  <footer><span>Made of good people.</span><span>ANNA A. · ANNA K. · ASIF · KANIKA · MAJA · MARTINA · STANISLAV · TOMASZ · ENDER</span><span>Since we became us.</span></footer>
+  <dialog id="confirmation">
+    <form method="dialog">
+      <p class="eyebrow">ONE QUICK CHECK</p>
+      <h2 id="confirm-title">Ready to continue?</h2>
+      <p id="confirm-text"></p>
+      <div class="button-row"><button value="cancel" class="secondary">Not yet</button><button value="confirm">Yes, continue</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

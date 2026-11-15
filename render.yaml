@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: hygge-anniversary
+    runtime: node
+    plan: free
+    buildCommand: node --version
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.13.0
+      - key: ALLOWED_ORIGIN
+        value: https://enderyuksel.github.io

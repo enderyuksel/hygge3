@@ -1,0 +1,12 @@
+{
+  "name": "hygge-anniversary",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A database-free live celebration for three years of Team Hygge.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  }
+}
