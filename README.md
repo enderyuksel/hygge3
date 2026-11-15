@@ -88,11 +88,11 @@ Render's [free-service documentation](https://render.com/docs/free) says idle se
 1. **Before screen sharing:** click **Let's celebrate**, open **Host desk**, and privately send each person their own invitation. Open Ender's voter link in another tab. Keep the host link private.
 2. Enable **Presentation view** to hide the host desk, then screen-share this page. Participants follow each chapter automatically on their own devices.
 3. **Gather (3 min):** one word from each person, a welcome, and a raised cup.
-4. **Remember (5 min):** 30 seconds to think; each person shares a short memory or passes.
+4. **Remember (5 min suggested, flexible):** 2 minutes to think; each person gets about 30 seconds to share a short memory or pass. Allow this chapter to run longer if everyone shares.
 5. **Vote (8 min):** all nine participants submit their ballots. Progress shows how many have submitted, never live vote totals. Allow a little time for final revisions.
 6. Close voting. This is irreversible; missing ballots require confirmation, and at least one ballot is required.
 7. **Celebrate (10 min):** reveal eight awards one at a time. Applaud, then invite a short example of that person's contribution. All eight awards must be revealed before moving on.
-8. **Look ahead (4 min):** one wish for the next year and a closing toast. Download badges individually as SVG or 2000 × 1520 PNG, download the complete SVG badge sheet, or print/save the gallery as PDF.
+8. **Look ahead (4 min):** one wish for the next year and a closing toast. Download badges individually as SVG or 2000 × 1520 PNG, download the complete SVG badge sheet, or print/save the gallery as PDF. Every displayed and exported badge includes the custom "Hygge 3 Years, November 2026" anniversary logo.
 
 Timers are gentle shared countdowns, not automatic cutoffs. Ender controls every transition.
 

@@ -112,11 +112,11 @@ function invitations() {
     </details>`;
 }
 function gather() {
-  return `<div class="stage-grid"><section class="panel green"><p class="eyebrow">THE PEOPLE MAKE THE PLACE</p><h2>Our kind of together.</h2><div class="names">${MEMBERS.map(name => `<span class="name-chip">${name}</span>`).join('')}<span class="name-chip lead">Ender · team lead</span></div><p class="fine">Find your favourite drink. Put the to-do list down.<br>For the next half hour, this is the important thing.</p></section>
+  return `<div class="stage-grid"><section class="panel green"><p class="eyebrow">THE PEOPLE MAKE THE PLACE</p><h2>Our kind of together.</h2><div class="names">${VOTERS.map(name => `<span class="name-chip">${name}</span>`).join('')}</div><p class="fine">Find your favourite drink. Put the to-do list down.<br>For the next half hour, this is the important thing.</p></section>
     <section class="panel"><p class="eyebrow">A SOFT LANDING</p><h2>One word to arrive.</h2><p>Go around the room: what’s one word that describes Hygge to you today?</p><p class="fine">Ender, start us off. There’s no perfect answer.<br>Allow about 15 seconds each, then raise a cup to year three.</p></section></div>`;
 }
 function remember() {
-  return `<div class="prompts"><section class="prompt"><span class="symbol" aria-hidden="true">✦</span><h2>A moment that stayed.</h2><p>A small win, a shared laugh, or a day you still think about.</p></section><section class="prompt"><span class="symbol" aria-hidden="true">♡</span><h2>Someone who helped.</h2><p>When did a teammate make something a little easier?</p></section><section class="prompt"><span class="symbol" aria-hidden="true">↗</span><h2>Look how far we’ve come.</h2><p>What can we do together now that we couldn’t three years ago?</p></section></div><p class="fine">Take 30 seconds to think. Choose one prompt. Each person gets about 30 seconds to share, or pass.</p>`;
+  return `<div class="prompts"><section class="prompt"><span class="symbol" aria-hidden="true">✦</span><h2>A moment that stayed.</h2><p>A small win, a shared laugh, or a day you still think about.</p></section><section class="prompt"><span class="symbol" aria-hidden="true">♡</span><h2>Someone who helped.</h2><p>When did a teammate make something a little easier?</p></section><section class="prompt"><span class="symbol" aria-hidden="true">↗</span><h2>Look how far we’ve come.</h2><p>What can we do together now that we couldn’t three years ago?</p></section></div><p class="fine">Take 2 minutes to think. Choose one prompt. Each person gets about 30 seconds to share, or pass.</p>`;
 }
 function tally() {
   return `<div class="vote-summary"><div><strong id="vote-count">${current.submitted} / 9</strong><p class="fine">ballots submitted · votes stay hidden</p></div><span class="fine">14 categories<br>8 unique awards</span></div>`;
@@ -131,16 +131,28 @@ function vote() {
   const saved = load(`hygge-draft-${session.id}-${current.voter}`);
   const validDraft = value => Array.isArray(value) && value.length === CATEGORIES.length && value.every(p => p === '' || (Number.isInteger(p) && p >= 0 && p < MEMBERS.length));
   draft = validDraft(saved) ? saved : current.ballot ? [...current.ballot] : Array(CATEGORIES.length).fill('');
-  return `${tally()}<p class="eyebrow">YOUR BALLOT · ${VOTERS[current.voter]}</p><p class="rules">Choose one person per category. You can nominate the same person in different categories and vote for yourself. Ender votes but does not receive an award.</p>
+  return `${tally()}<p class="eyebrow">YOUR BALLOT · ${VOTERS[current.voter]}</p><p class="rules">Choose one person per category. You can nominate the same person in different categories and vote for yourself.</p>
     <form id="ballot"><div class="ballot-grid">${CATEGORIES.map(([name, description], i) => `<div class="ballot-item"><label for="category-${i}"><span class="category-number">${String(i + 1).padStart(2, '0')} / </span>${name}</label><p>${description}</p><select required id="category-${i}" name="category-${i}" data-category="${i}"><option value="">Choose someone…</option>${MEMBERS.map((person, p) => `<option value="${p}" ${draft[i] === p ? 'selected' : ''}>${person}</option>`).join('')}</select></div>`).join('')}</div>
     <div class="ballot-submit"><span id="ballot-status" class="fine">${ballotStatus()}</span><button type="submit">${current.ballot ? 'Update ballot' : 'Submit ballot'} ↗</button></div></form>${rules()}`;
 }
+function anniversaryLogo() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" class="anniversary-logo" width="320" height="150" viewBox="0 0 320 150" role="img" aria-label="Hygge 3 Years, November 2026">
+    <rect x="3" y="3" width="314" height="144" rx="72" fill="#f5f2e9" stroke="#a6b298" stroke-width="2"/>
+    <rect x="10" y="10" width="300" height="130" rx="65" fill="none" stroke="#d2d8c7"/>
+    <circle cx="76" cy="75" r="48" fill="#304d3d"/>
+    <text x="76" y="90" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="64" fill="#f5f2e9">3</text>
+    <path d="m112 29 3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#b85636"/>
+    <g fill="#304d3d" text-anchor="middle"><text x="204" y="65" font-family="Georgia,serif" font-size="39">Hygge</text>
+    <text x="204" y="90" font-family="Arial,sans-serif" font-size="13" letter-spacing="5">YEARS</text>
+    <path d="M149 103h110" stroke="#a6b298"/>
+    <text x="204" y="121" font-family="Arial,sans-serif" font-size="11" letter-spacing="1">NOVEMBER 2026</text></g></svg>`;
+}
 function awardCard(award) {
-  return `<article class="badge-card"><span class="medal" aria-hidden="true">✺</span><p class="eyebrow">HYGGE HONOURS · YEAR THREE</p><h3>${MEMBERS[award.person]}</h3><p>${CATEGORIES[award.category][0]}</p><button class="small secondary" data-action="svg" data-person="${award.person}">Save SVG</button><button class="small secondary" data-action="png" data-person="${award.person}">Save PNG</button></article>`;
+  return `<article class="badge-card">${anniversaryLogo()}<p class="eyebrow">HYGGE HONOURS · YEAR THREE</p><h3>${MEMBERS[award.person]}</h3><p>${CATEGORIES[award.category][0]}</p><button class="small secondary" data-action="svg" data-person="${award.person}">Save SVG</button><button class="small secondary" data-action="png" data-person="${award.person}">Save PNG</button></article>`;
 }
 function celebrate() {
   const award = current.awards.at(-1);
-  return `${award ? `<section class="award-feature" aria-live="polite"><div class="medal" aria-hidden="true">✺</div><p class="eyebrow">AWARD ${current.revealed} OF 8</p><h3>${CATEGORIES[award.category][0]}</h3><p>${CATEGORIES[award.category][1]}</p><h2>${MEMBERS[award.person]}</h2><p>A little more Hygge, because of you.</p></section><p class="fine centre">Applause first. Then: who has a little story that shows this person’s superpower?<br>Aim for about one minute per award. Sharing is optional.</p>` : `<section class="empty-awards"><p class="eyebrow">THE VOTES ARE IN</p><h2>Eight people. Eight moments to shine.</h2><p class="fine">Ender will reveal each award, one at a time.</p></section>`}
+  return `${award ? `<section class="award-feature" aria-live="polite">${anniversaryLogo()}<p class="eyebrow">AWARD ${current.revealed} OF 8</p><h3>${CATEGORIES[award.category][0]}</h3><p>${CATEGORIES[award.category][1]}</p><h2>${MEMBERS[award.person]}</h2><p>A little more Hygge, because of you.</p></section>` : `<section class="empty-awards"><p class="eyebrow">THE VOTES ARE IN</p><h2>Eight people. Eight moments to shine.</h2><p class="fine">Ender will reveal each award, one at a time.</p></section>`}
     ${current.host ? `<div class="button-row centred"><button data-action="reveal" ${current.revealed === 8 ? 'disabled' : ''}>${current.revealed === 0 ? 'Reveal the first award' : current.revealed === 8 ? 'Everyone celebrated ✓' : 'Reveal the next award'} ↗</button></div>` : ''}
     <section class="award-gallery" aria-label="Revealed awards">${current.awards.map(awardCard).join('')}</section>${rules()}`;
 }
@@ -278,7 +290,7 @@ function badgeSVG(award) {
     <rect x="24" y="24" width="952" height="712" rx="16" fill="none" stroke="#a6b298" stroke-width="2"/>
     <rect x="36" y="36" width="928" height="688" rx="12" fill="none" stroke="#d2d8c7"/>
     <path d="M220 624V325a280 280 0 0 1 560 0v299" fill="#e6eada"/>
-    <g fill="none" stroke="#b45b3c" stroke-width="3"><circle cx="500" cy="141" r="35"/><circle cx="500" cy="141" r="26"/><path d="m500 117 7 16 18 2-14 12 4 17-15-9-15 9 4-17-14-12 18-2z"/></g>
+    <g transform="translate(340 55)">${anniversaryLogo()}</g>
     <g text-anchor="middle" fill="#304d3d"><text x="500" y="223" font-family="Arial,sans-serif" font-size="15" letter-spacing="5">HYGGE HONOURS · YEAR THREE</text>
     <text x="500" y="340" font-family="Georgia,serif" font-size="76">${escape(MEMBERS[award.person])}</text>
     <path d="M430 376h140" stroke="#a6b298"/>
