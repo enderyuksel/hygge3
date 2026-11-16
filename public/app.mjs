@@ -1,5 +1,6 @@
-import { MEMBERS, VOTERS, CATEGORIES, STAGES } from './shared.mjs';
+import { MEMBERS, FULL_NAMES, VOTERS, CATEGORIES, STAGES } from './shared.mjs';
 import { RELAY_URL } from './config.mjs';
+import { SIMCORP_LOGO } from './simcorp-logo.mjs';
 
 const siteURL = new URL('./', location.href).href;
 const apiOrigin = RELAY_URL.replace(/\/$/, '') || location.origin;
@@ -89,7 +90,7 @@ function landing() {
   app.innerHTML = `
     <section class="hero">
       <div><p class="eyebrow">GOOD PEOPLE. GOOD THINGS. YEAR THREE.</p>
-        <h1>Three years.<br>One <em>lovely</em><br>team.</h1>
+        <h1>Three years.<br>One <em>great</em><br>team.</h1>
         <p class="lede">Not just the things we’ve made.<br>The people we’ve become, together.<br>Let’s make a little room to celebrate Hygge.</p>
         <div class="button-row"><button data-action="create">Let’s celebrate <span aria-hidden="true">↗</span></button>${saved ? '<button class="secondary" data-action="resume">Resume as Ender</button>' : ''}</div>
         <p class="fine">9 good humans &nbsp; / &nbsp; 30 minutes together &nbsp; / &nbsp; 3 years of Hygge<br>Facilitated by Ender. Guests: open your personal invitation link.</p>
@@ -147,12 +148,15 @@ function anniversaryLogo() {
     <path d="M149 103h110" stroke="#a6b298"/>
     <text x="204" y="121" font-family="Arial,sans-serif" font-size="11" letter-spacing="1">NOVEMBER 2026</text></g></svg>`;
 }
+function simcorpLogo() {
+  return `<img class="simcorp-logo" src="${SIMCORP_LOGO}" alt="SimCorp" width="399" height="73">`;
+}
 function awardCard(award) {
-  return `<article class="badge-card">${anniversaryLogo()}<p class="eyebrow">HYGGE HONOURS · YEAR THREE</p><h3>${MEMBERS[award.person]}</h3><p>${CATEGORIES[award.category][0]}</p><button class="small secondary" data-action="svg" data-person="${award.person}">Save SVG</button><button class="small secondary" data-action="png" data-person="${award.person}">Save PNG</button></article>`;
+  return `<article class="badge-card">${anniversaryLogo()}<p class="eyebrow">HYGGE HONOURS · YEAR THREE</p><h3>${FULL_NAMES[award.person]}</h3><p>${CATEGORIES[award.category][0]}</p>${simcorpLogo()}<button class="small secondary" data-action="svg" data-person="${award.person}">Save SVG</button><button class="small secondary" data-action="png" data-person="${award.person}">Save PNG</button></article>`;
 }
 function celebrate() {
   const award = current.awards.at(-1);
-  return `${award ? `<section class="award-feature" aria-live="polite">${anniversaryLogo()}<p class="eyebrow">AWARD ${current.revealed} OF 8</p><h3>${CATEGORIES[award.category][0]}</h3><p>${CATEGORIES[award.category][1]}</p><h2>${MEMBERS[award.person]}</h2><p>A little more Hygge, because of you.</p></section>` : `<section class="empty-awards"><p class="eyebrow">THE VOTES ARE IN</p><h2>Eight people. Eight moments to shine.</h2><p class="fine">Ender will reveal each award, one at a time.</p></section>`}
+  return `${award ? `<section class="award-feature" aria-live="polite">${anniversaryLogo()}<p class="eyebrow">AWARD ${current.revealed} OF 8</p><h3>${CATEGORIES[award.category][0]}</h3><p>${CATEGORIES[award.category][1]}</p><h2>${FULL_NAMES[award.person]}</h2><p>A little more Hygge, because of you.</p>${simcorpLogo()}</section>` : `<section class="empty-awards"><p class="eyebrow">THE VOTES ARE IN</p><h2>Eight people. Eight moments to shine.</h2><p class="fine">Ender will reveal each award, one at a time.</p></section>`}
     ${current.host ? `<div class="button-row centred"><button data-action="reveal" ${current.revealed === 8 ? 'disabled' : ''}>${current.revealed === 0 ? 'Reveal the first award' : current.revealed === 8 ? 'Everyone celebrated ✓' : 'Reveal the next award'} ↗</button></div>` : ''}
     <section class="award-gallery" aria-label="Revealed awards">${current.awards.map(awardCard).join('')}</section>${rules()}`;
 }
@@ -285,25 +289,29 @@ function wrapped(text, limit = 30) {
 }
 function badgeSVG(award) {
   const title = wrapped(CATEGORIES[award.category][0]);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760" role="img" aria-label="${escape(MEMBERS[award.person])} — ${escape(CATEGORIES[award.category][0])}">
+  const name = FULL_NAMES[award.person];
+  // Shrink long names so they stay inside the arch.
+  const nameSize = Math.min(76, Math.floor(1050 / name.length));
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760" role="img" aria-label="${escape(name)} — ${escape(CATEGORIES[award.category][0])}">
     <rect width="1000" height="760" rx="24" fill="#f5f2e9"/>
     <rect x="24" y="24" width="952" height="712" rx="16" fill="none" stroke="#a6b298" stroke-width="2"/>
     <rect x="36" y="36" width="928" height="688" rx="12" fill="none" stroke="#d2d8c7"/>
     <path d="M220 624V325a280 280 0 0 1 560 0v299" fill="#e6eada"/>
     <g transform="translate(340 55)">${anniversaryLogo()}</g>
     <g text-anchor="middle" fill="#304d3d"><text x="500" y="223" font-family="Arial,sans-serif" font-size="15" letter-spacing="5">HYGGE HONOURS · YEAR THREE</text>
-    <text x="500" y="340" font-family="Georgia,serif" font-size="76">${escape(MEMBERS[award.person])}</text>
+    <text x="500" y="340" font-family="Georgia,serif" font-size="${nameSize}">${escape(name)}</text>
     <path d="M430 376h140" stroke="#a6b298"/>
     <text font-family="Georgia,serif" font-size="38">${title.map((line, i) => `<tspan x="500" y="${442 + i * 47}">${escape(line)}</tspan>`).join('')}</text>
     <text x="500" y="591" font-family="Georgia,serif" font-style="italic" font-size="23">A little more Hygge, because of you.</text>
-    <text x="500" y="682" font-family="Arial,sans-serif" font-size="13" letter-spacing="4">THREE YEARS. ONE LOVELY TEAM.</text></g>
+    <text x="500" y="702" font-family="Arial,sans-serif" font-size="13" letter-spacing="4">THREE YEARS. ONE GREAT TEAM.</text></g>
+    <image x="423" y="642" width="153" height="28" href="${SIMCORP_LOGO}"/>
     <g stroke="#879879" fill="none" stroke-width="3"><path d="M153 555q-46-85 0-170m-1 147q-38-4-36-34 31 0 36 34m-6-54q-31-11-21-37 28 6 21 37m-1-13q32-9 31-37-29 3-31 37m702 90q46-85 0-170m1 147q38-4 36-34-31 0-36 34m6-54q31-11 21-37-28 6-21 37m1-13q-32-9-31-37 29 3 31 37"/></g></svg>`;
 }
 async function badgeDownload(person, png) {
   const award = current.awards.find(item => item.person === person);
   if (!award) throw new Error('This award has not been revealed yet.');
   const blob = new Blob([badgeSVG(award)], { type: 'image/svg+xml' });
-  const filename = `Hygge-${MEMBERS[person].replace(/[^a-z0-9]/gi, '-')}`;
+  const filename = `Hygge-${FULL_NAMES[person].replace(/[^a-z0-9]/gi, '-')}`;
   if (!png) return download(blob, `${filename}.svg`);
   const url = URL.createObjectURL(blob);
   try {

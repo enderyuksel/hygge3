@@ -196,7 +196,7 @@ export function createApp({ allowedOrigin = process.env.ALLOWED_ORIGIN ?? '' } =
         broadcast(room);
         return json(res, 200, state(room, auth));
       }
-      const files = { '/': ['index.html', 'text/html'], '/app.mjs': ['app.mjs', 'text/javascript'], '/shared.mjs': ['shared.mjs', 'text/javascript'], '/config.mjs': ['config.mjs', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
+      const files = { '/': ['index.html', 'text/html'], '/app.mjs': ['app.mjs', 'text/javascript'], '/shared.mjs': ['shared.mjs', 'text/javascript'], '/config.mjs': ['config.mjs', 'text/javascript'], '/simcorp-logo.mjs': ['simcorp-logo.mjs', 'text/javascript'], '/style.css': ['style.css', 'text/css'] };
       if (req.method === 'GET' && files[url.pathname]) {
         const [filename, type] = files[url.pathname];
         const content = await readFile(new URL(`./public/${filename}`, import.meta.url));

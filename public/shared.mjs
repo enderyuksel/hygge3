@@ -1,4 +1,5 @@
 export const MEMBERS = ['Anna A.', 'Anna K.', 'Asif', 'Kanika', 'Maja', 'Martina', 'Stanislav', 'Tomasz'];
+export const FULL_NAMES = ['Anna Antoniuk', 'Anna Koprowicz-Boukoffa', 'Asif Nadeem Anjum', 'Kanika Jadhav Sharma', 'Maja Glina', 'Martina Chmurna', 'Stanislav Vdovin', 'Tomasz Pastuszka'];
 export const VOTERS = [...MEMBERS, 'Ender'];
 export const CATEGORIES = [
   ['Calmest in a Crisis', 'A steady hand when the unexpected happens.'],
@@ -17,9 +18,9 @@ export const CATEGORIES = [
   ['Best Email Writer', 'The right words, beautifully put.']
 ];
 export const STAGES = [
-  { name: 'Gather', minutes: 3, eyebrow: '01 / A little room for us', title: 'Three years.\nOne lovely team.', text: 'A pause to celebrate the people who make Hygge feel like Hygge.' },
+  { name: 'Gather', minutes: 3, eyebrow: '01 / A little room for us', title: 'Three years.\nOne great team.', text: 'A pause to celebrate the people who make Hygge feel like Hygge.' },
   { name: 'Remember', minutes: 5, eyebrow: '02 / The good things stay', title: 'Small moments.\nLasting memories.', text: 'Take a moment to think, then share a story. A sentence is enough.' },
-  { name: 'Vote', minutes: 8, eyebrow: '03 / Notice the good', title: 'You see the magic.\nGive it a name.', text: 'Fourteen ways to appreciate each other. Eight people to celebrate.' },
+  { name: 'Vote', minutes: 8, eyebrow: '03 / Notice the good', title: 'You see the magic.\nGive it a name.', text: 'Many ways to appreciate each other. Eight people to celebrate.' },
   { name: 'Celebrate', minutes: 10, eyebrow: '04 / A very Hygge honours list', title: 'Every person.\nTheir own kind of brilliant.', text: 'One award each. A little applause. And a story about why it fits.' },
   { name: 'Look ahead', minutes: 4, eyebrow: '05 / Here’s to what’s next', title: 'More good things.\nTogether.', text: 'Three years of Hygge. And so much still to make, learn, and celebrate.' }
 ];
